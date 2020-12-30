@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 public interface MinioService {
 
 
-    AjaxResult MinioUpload(MultipartFile file);
-    AjaxResult deletePic(String name);
-    AjaxResult visitPic(HttpServletResponse response) throws Exception;
+    AjaxResult minioUpload(MultipartFile file);
+    AjaxResult minioDelete(String name);
+    AjaxResult minioVisit(HttpServletResponse response) throws Exception;
 
 
 }
