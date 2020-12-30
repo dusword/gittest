@@ -60,12 +60,16 @@ public class MinioServiceImpl implements MinioService {
     * */
     @Override
     public AjaxResult minioDelete(String name) {
+        boolean flag;
         try {
-            minioUtil.removeObject(bucketName,name);
+            flag = minioUtil.removeObject(bucketName,name);
         } catch (Exception e) {
-            return AjaxResult.fail("删除失败"+e.getMessage());
+            return AjaxResult.fail("服务失败 "+e.getMessage());
         }
-        return AjaxResult.success("删除成功");
+        if (flag) {
+            return AjaxResult.success("删除成功");
+        }
+        return AjaxResult.fail("删除失败");
     }
 
     /*查看图片
