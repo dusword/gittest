@@ -1,5 +1,6 @@
 package com.example.test.service;
 
+import com.example.test.utils.AjaxResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -7,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 public interface MinioService {
 
 
-    String MinioUpload(MultipartFile file);
-    String deletePic(String name);
-    void visitPic(HttpServletResponse response) throws Exception;
+    AjaxResult MinioUpload(MultipartFile file);
+    AjaxResult deletePic(String name);
+    AjaxResult visitPic(HttpServletResponse response) throws Exception;
 
 
 }

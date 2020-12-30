@@ -1,6 +1,7 @@
 package com.example.test.service.impl;
 
 import com.example.test.service.MinioService;
+import com.example.test.utils.AjaxResult;
 import com.example.test.utils.MinioUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,9 +28,10 @@ public class MinioServiceImpl implements MinioService {
     file 文件名
     * */
     @Override
-    public String MinioUpload(MultipartFile file) {
+    public AjaxResult MinioUpload(MultipartFile file) {
         if (file.isEmpty() || file.getSize() == 0) {
-            return "文件为空";
+//            return "文件为空";
+            return AjaxResult.fail("文件为空");
         }
         try {
             String fileName = file.getOriginalFilename();
@@ -42,10 +44,10 @@ public class MinioServiceImpl implements MinioService {
             inputStream.close();
 
             String url = minioUtil.getObjectUrl(bucketName, newName);
-            return url;
+            return AjaxResult.success(url);
         } catch (Exception e) {
             e.printStackTrace();
-            return "上传失败";
+            return AjaxResult.fail("上传失败");
         }
     }
 
@@ -53,20 +55,21 @@ public class MinioServiceImpl implements MinioService {
     name 文件名
     * */
     @Override
-    public String deletePic(String name) {
+    public AjaxResult deletePic(String name) {
         try {
             minioUtil.removeObject(bucketName,name);
         } catch (Exception e) {
-            return "删除失败"+e.getMessage();
+            return AjaxResult.fail("删除失败"+e.getMessage());
         }
-        return "删除成功";
+        return AjaxResult.success("删除成功");
     }
 
     /*查看图片
     * */
     @Override
-    public void visitPic(HttpServletResponse response) throws Exception {
+    public AjaxResult visitPic(HttpServletResponse response) throws Exception {
         String url=minioUtil.getObjectUrl(bucketName, picName);
         response.sendRedirect(url);
+        return AjaxResult.success();
     }
 }

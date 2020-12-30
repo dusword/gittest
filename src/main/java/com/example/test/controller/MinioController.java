@@ -1,6 +1,7 @@
 package com.example.test.controller;
 
 import com.example.test.service.MinioService;
+import com.example.test.utils.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ public class MinioController {
     public MinioService minioService;
 
     @PostMapping("/upload")
-    public String uploadPic(MultipartFile file){
+    public AjaxResult uploadPic(MultipartFile file){
         return minioService.MinioUpload(file);
     }
 }
