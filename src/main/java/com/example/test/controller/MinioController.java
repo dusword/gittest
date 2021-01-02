@@ -27,6 +27,7 @@ public class MinioController {
     public AjaxResult deletePic(String name){
         return minioService.minioDelete(name);
     }
+
     @RequestMapping("/visit")
     public AjaxResult visitPic(HttpServletResponse response)throws Exception{
         return minioService.minioVisit(response);
